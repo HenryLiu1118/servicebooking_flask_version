@@ -13,8 +13,9 @@ arguments = ['info', 'servicetype']
 class AllRequest(Resource):
     @token_required
     @authorize('Service')
-    def get(self):
-        return filterResult(RequestOrder)
+    @filterResult(RequestOrder)
+    def get(self, serviceName=None, languageName=None):
+        return g.res
 
 
 class MyRequest(Resource):
@@ -33,31 +34,10 @@ class MyRequest(Resource):
         })
 
 
-class RequestByService(Resource):
-    @token_required
-    @authorize('Service')
-    def get(self, serviceName):
-        return filterResult(model=RequestOrder, serviceName=serviceName)
-
-
-class RequestByLanguage(Resource):
-    @token_required
-    @authorize('Service')
-    def get(self, languageName):
-        return filterResult(model=RequestOrder, languageName=languageName)
-
-
 class RequestItem(Resource):
     @token_required
     def get(self, RequestId):
         return jsonify(RequestOrder.find_by_id(RequestId=RequestId).json())
-
-
-class RequestByServiceAndLanguage(Resource):
-    @token_required
-    @authorize('Service')
-    def get(self, serviceName, languageName):
-        return filterResult(model=RequestOrder, serviceName=serviceName, languageName=languageName)
 
 
 class RequestDeleteAndUpdate(Resource):

@@ -12,29 +12,9 @@ arguments = ['detail', 'price', 'servicename']
 class AllProvide(Resource):
     @token_required
     @authorize('Customer')
-    def get(self):
-        return filterResult(ServiceProvide)
-
-
-class ProvideByService(Resource):
-    @token_required
-    @authorize('Customer')
-    def get(self, serviceName):
-        return filterResult(model=ServiceProvide, serviceName=serviceName)
-
-
-class ProvideByLanguage(Resource):
-    @token_required
-    @authorize('Customer')
-    def get(self, languageName):
-        return filterResult(model=ServiceProvide, languageName=languageName)
-
-
-class ProvideByServiceAndLanguage(Resource):
-    @token_required
-    @authorize('Customer')
-    def get(self, serviceName, languageName):
-        return filterResult(model=ServiceProvide, serviceName=serviceName, languageName=languageName)
+    @filterResult(ServiceProvide)
+    def get(self, serviceName=None, languageName=None):
+        return g.res
 
 
 class MyProvide(Resource):

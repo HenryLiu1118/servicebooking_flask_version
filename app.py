@@ -5,8 +5,8 @@ from db import db
 
 from resources.user import UserRegister, UserLanguage, UserRole, UserServiceType, UserLogin
 from resources.userinfo import UserInfo, UserInfoMine
-from resources.provide import AllProvide, MyProvide, ProvideByService, ProvideByLanguage, UpdateProvide, ProvideByServiceAndLanguage
-from resources.request import AllRequest, RequestByLanguage, RequestByService, RequestByServiceAndLanguage, RequestDeleteAndUpdate, RequestItem, MyRequest, PostRequest
+from resources.provide import AllProvide, MyProvide, UpdateProvide
+from resources.request import AllRequest, RequestDeleteAndUpdate, RequestItem, MyRequest, PostRequest
 from resources.comment import Comments, PostComment, CommentItem, CheckComment
 from resources.admin import AdminLanguage, AdminRole, AdminServiceType, AdminUser
 
@@ -39,20 +39,20 @@ api.add_resource(UserInfo, '/api/userinfo')
 api.add_resource(UserInfoMine, '/api/userinfo/me')
 
 # Provide Resource
-api.add_resource(AllProvide, '/api/provider')
-api.add_resource(ProvideByService, '/api/provider/name/<string:serviceName>')
-api.add_resource(ProvideByLanguage, '/api/provider/language/<string:languageName>')
-api.add_resource(ProvideByServiceAndLanguage, '/api/provider/<string:serviceName>/<string:languageName>')
+api.add_resource(AllProvide, '/api/provider', endpoint='provide_all')
+api.add_resource(AllProvide, '/api/provider/name/<string:serviceName>', endpoint='provide_service')
+api.add_resource(AllProvide, '/api/provider/language/<string:languageName>', endpoint='provide_language')
+api.add_resource(AllProvide, '/api/provider/<string:serviceName>/<string:languageName>', endpoint='provide_service_language')
 api.add_resource(MyProvide, '/api/provider/me')
 api.add_resource(UpdateProvide, '/api/provider/update')
 
 # Request Resource
-api.add_resource(AllRequest, '/api/request/All')
+api.add_resource(AllRequest, '/api/request/All', endpoint='request_all')
 api.add_resource(MyRequest, '/api/request/me')
-api.add_resource(RequestByService, '/api/request/name/<string:serviceName>')
-api.add_resource(RequestByLanguage, '/api/request/language/<string:languageName>')
+api.add_resource(AllRequest, '/api/request/name/<string:serviceName>', endpoint='request_service')
+api.add_resource(AllRequest, '/api/request/language/<string:languageName>', endpoint='request_language')
 api.add_resource(RequestItem, '/api/request/list/<string:RequestId>')
-api.add_resource(RequestByServiceAndLanguage, '/api/request/<string:serviceName>/<string:languageName>')
+api.add_resource(AllRequest, '/api/request/<string:serviceName>/<string:languageName>', endpoint='request_service_language')
 api.add_resource(RequestDeleteAndUpdate, '/api/request/id/<string:RequestId>')
 api.add_resource(PostRequest, '/api/request')
 
