@@ -24,7 +24,7 @@ api = Api(app)
 
 @app.before_first_request
 def create_tables():
-    print('test git from v1-2-3-4')
+    print('test git from v1-2-3-4-5')
     db.create_all()
 
 
