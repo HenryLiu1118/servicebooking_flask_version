@@ -25,6 +25,7 @@ api = Api(app)
 @app.before_first_request
 def create_tables():
     # no
+    # nothing
     db.create_all()
 
 
